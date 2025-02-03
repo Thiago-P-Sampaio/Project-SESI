@@ -1,10 +1,7 @@
 package com.sesi.projeto.entities;
 
 import com.sesi.projeto.dto.PagamentoDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 
@@ -12,6 +9,7 @@ import java.time.Instant;
 @Table ( name = "pagamento")
 public class Pagamento {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Instant momento;
