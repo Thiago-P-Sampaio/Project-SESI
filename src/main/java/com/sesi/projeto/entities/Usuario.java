@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "tb_usuario")
 public class Usuario {
 
 
@@ -20,7 +20,7 @@ public class Usuario {
     private String senha;
     private String role;
 
-    @OneToMany(mappedBy = "tb_usuario")
+    @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<Pedido>();
 
     public Usuario(Long id, String name, String email, String telefone, String senha, String role) {

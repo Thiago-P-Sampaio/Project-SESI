@@ -1,22 +1,24 @@
 package com.sesi.projeto.entities;
 
 import com.sesi.projeto.dto.ItemPedidoDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_itemdopedido")
+@Table(name = "tb_item_pedido")
 public class ItemDoPedido {
-    @Id
-    private Long id;
+
+    @EmbeddedId
+    private ItemDoPedidoPK id = new ItemDoPedidoPK();
+
     private Double preco;
     private int  quantidade;
 
-    public ItemDoPedido(int quantidade, Double preco, Long id) {
+    public ItemDoPedido(Pedido pedido, Produto produto, int quantidade, Double preco) {
+        id.setPedido(pedido);
+        id.setProduto(produto);
         this.quantidade = quantidade;
         this.preco = preco;
-        this.id = id;
+
     }
 
     public ItemDoPedido() {
@@ -27,13 +29,17 @@ public class ItemDoPedido {
         this.preco = dtoitempedido.preco();
     }
 
-
-    public Long getId() {
-        return id;
+    public Pedido getPedido(){
+        return id.getPedido();
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public  void setPedido(Pedido pedido){
+        id.setPedido(pedido);
+    }
+
+
+    public ItemDoPedidoPK getId() {
+        return id;
     }
 
     public Double getPreco() {
@@ -51,4 +57,18 @@ public class ItemDoPedido {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public void setId(ItemDoPedidoPK id) {
+        this.id = id;
+    }
+
+    public Produto getProduto(){
+        return id.getProduto();
+    }
+
+    public void setProduto(Produto produto){
+        id.setProduto(produto);
+    }
+
+
 }

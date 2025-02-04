@@ -3,8 +3,10 @@ package com.sesi.projeto.entities;
 import com.sesi.projeto.dto.ProdutoDTO;
 
 import jakarta.persistence.*;
+import jdk.dynalink.linker.LinkerServices;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +26,16 @@ public class Produto {
 	joinColumns = @JoinColumn(name = "produto_id"),
 	inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private Set<Categoria> categorias = new HashSet<>();
+
+	@OneToMany(mappedBy = "id.produto")
+	private Set<ItemDoPedido> itens = new HashSet<>();
+	public Set<ItemDoPedido> getItens(){
+		return itens;
+	}
+
+	public List<Pedido> getPedido(){
+		return itens.stream().map(x -> x.getPedido()).toList();
+	}
 
 	public Produto() {
 
