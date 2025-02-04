@@ -3,9 +3,14 @@ package com.sesi.projeto.entities;
 import com.sesi.projeto.dto.UsuarioDTO;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
+
+
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,6 +19,9 @@ public class Usuario {
     private String telefone;
     private String senha;
     private String role;
+
+    @OneToMany(mappedBy = "tb_usuario")
+    private List<Pedido> pedidos = new ArrayList<Pedido>();
 
     public Usuario(Long id, String name, String email, String telefone, String senha, String role) {
         this.id = id;

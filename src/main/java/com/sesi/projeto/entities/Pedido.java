@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table (name = "pedido")
+@Table (name = "tb_pedido")
 public class Pedido {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,11 +14,19 @@ public class Pedido {
     private Instant momento;
     private StatusDoPedido status;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Usuario cliente;
+
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
+
     public Pedido(Long id, Instant momento, StatusDoPedido status) {
         this.id = id;
         this.momento = momento;
         this.status = status;
     }
+
 
     public Pedido() {
     }

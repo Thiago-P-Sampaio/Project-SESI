@@ -3,14 +3,20 @@ package com.sesi.projeto.entities;
 import com.sesi.projeto.dto.CategoriaDTO;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table( name = "categoria")
+@Table( name = "tb_categoria")
 public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @ManyToMany(mappedBy = "categorias")
+    private Set<Produto> produtos = new HashSet<>();
 
     public Categoria(Long id, String nome) {
         this.id = id;

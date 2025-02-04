@@ -6,13 +6,17 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table ( name = "pagamento")
+@Table ( name = "tb_pagamento")
 public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Instant momento;
+
+    @OneToOne
+    @MapsId
+    private Pedido pedido;
 
     public Pagamento(Long id, Instant momento) {
         this.id = id;
