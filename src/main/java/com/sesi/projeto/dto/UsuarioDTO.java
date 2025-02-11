@@ -1,7 +1,7 @@
 package com.sesi.projeto.dto;
 
 public record UsuarioDTO(
-         String name,
+         String nome,
          String email,
          String telefone,
          String senha,

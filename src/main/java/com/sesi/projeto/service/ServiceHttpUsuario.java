@@ -30,7 +30,7 @@ public class ServiceHttpUsuario {
 
     public Usuario atualizarPorId(Long id, UsuarioDTO dto) {
         return usuarioRepository.findById(id).map(usuario -> {
-            if (dto.name() != null) usuario.setName(dto.name());
+            if (dto.nome() != null) usuario.setNome(dto.nome());
             if (dto.email() != null) usuario.setEmail(dto.email());
             if (dto.senha() != null) usuario.setSenha(dto.senha());
             if (dto.telefone() != null) usuario.setTelefone(dto.telefone());

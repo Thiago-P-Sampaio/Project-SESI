@@ -14,7 +14,7 @@ public class Usuario {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String nome;
     private String email;
     private String telefone;
     private String senha;
@@ -23,9 +23,9 @@ public class Usuario {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<Pedido>();
 
-    public Usuario(Long id, String name, String email, String telefone, String senha, String role) {
+    public Usuario(Long id, String nome, String email, String telefone, String senha, String role) {
         this.id = id;
-        this.name = name;
+        this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
@@ -36,7 +36,7 @@ public class Usuario {
     }
 
     public  Usuario(UsuarioDTO dtouser){
-    this.name = dtouser.name();
+    this.nome = dtouser.nome();
     this.email = dtouser.email();
     this.senha = dtouser.senha();
     this.telefone = dtouser.telefone();
@@ -53,12 +53,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getEmail() {

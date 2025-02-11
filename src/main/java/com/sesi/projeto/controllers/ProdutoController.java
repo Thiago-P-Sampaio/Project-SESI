@@ -5,6 +5,8 @@ import java.util.List;
 import com.sesi.projeto.service.ServiceHttpProduto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,38 +25,51 @@ public class ProdutoController {
 	ServiceHttpProduto serviceHttpProduto;
 
 	@GetMapping
-	public ResponseEntity<List<Produto>> mostrarTodos() {
-		return ResponseEntity.ok(serviceHttpProduto.BuscarTodosProdutos());
+	public List<ProdutoDTO> mostrarTodos() {
+		return serviceHttpProduto.BuscarTodosProdutos();
 	}
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> mostrarPorId(@PathVariable Long id) {
-		return ResponseEntity.ok(serviceHttpProduto.BuscarProdutoId(id));
-	}
-	
-	@PostMapping("/new")
-	public ResponseEntity<Produto> criar(@RequestBody @Valid ProdutoDTO dto){
-		Produto prod = new Produto(dto);
-		return ResponseEntity.ok(serviceHttpProduto.NovoProduto(prod));
+	@GetMapping( "pagina")
+	public Page<ProdutoDTO> mostrarTodos(Pageable pagina) {
+		return serviceHttpProduto.BuscarPorPagina(pagina);
 	}
 
-	@PutMapping("/updt/{id}")
-	public ResponseEntity<Produto> AtlzProduto(@PathVariable Long id, @RequestBody @Valid ProdutoDTO dto){
-		try {
-		return ResponseEntity.ok(serviceHttpProduto.atualizarPorId(id, dto));
-		} catch (RuntimeException e){
-			return  ResponseEntity.notFound().build();
-		}
-	}
 
-	@DeleteMapping("/dell/{id}")
-	public ResponseEntity DeletarProduto(@PathVariable Long id){
-		try {
-			serviceHttpProduto.DeleteProduto(id);
-			return ResponseEntity.ok().build();
-		} catch (RuntimeException e){
-			return  ResponseEntity.notFound().build();
-		}
-	}
+
+//	@GetMapping(value = "teste")
+//	public List<Produto> mostrar(){
+//		List<Produto> produtos = repo.findAll();
+//		return produtos;
+//	}
+//
+//	@GetMapping(value = "/{id}")
+//	public ResponseEntity<?> mostrarPorId(@PathVariable Long id) {
+//		return ResponseEntity.ok(serviceHttpProduto.BuscarProdutoId(id));
+//	}
+//
+//	@PostMapping("/new")
+//	public ResponseEntity<Produto> criar(@RequestBody @Valid ProdutoDTO dto){
+//		Produto prod = new Produto(dto);
+//		return ResponseEntity.ok(serviceHttpProduto.NovoProduto(prod));
+//	}
+//
+//	@PutMapping("/updt/{id}")
+//	public ResponseEntity<Produto> AtlzProduto(@PathVariable Long id, @RequestBody @Valid ProdutoDTO dto){
+//		try {
+//		return ResponseEntity.ok(serviceHttpProduto.atualizarPorId(id, dto));
+//		} catch (RuntimeException e){
+//			return  ResponseEntity.notFound().build();
+//		}
+//	}
+//
+//	@DeleteMapping("/dell/{id}")
+//	public ResponseEntity DeletarProduto(@PathVariable Long id){
+//		try {
+//			serviceHttpProduto.DeleteProduto(id);
+//			return ResponseEntity.ok().build();
+//		} catch (RuntimeException e){
+//			return  ResponseEntity.notFound().build();
+//		}
+//	}
 
 }

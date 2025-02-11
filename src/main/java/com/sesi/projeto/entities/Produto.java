@@ -7,6 +7,7 @@ import jdk.dynalink.linker.LinkerServices;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -18,7 +19,10 @@ public class Produto {
 	private Long id;
 	private String nome;
 	private double preco;
+	@Column(columnDefinition = "Text")
+
 	private String descricao;
+	@Column(columnDefinition = "Text")
 	private String imgUrl;
 
 	@ManyToMany
@@ -41,12 +45,6 @@ public class Produto {
 
 	}
 
-	public Produto(ProdutoDTO d) {
-		this.nome = d.nome();
-		this.preco = d.preco();
-		this.descricao = d.descricao();
-		this.imgUrl = d.imgUrl();
-	}
 
 	public Produto(Long id, String nome, double preco, String descricao, String imgUrl) {
 		this.id = id;
@@ -92,7 +90,20 @@ public class Produto {
 		return imgUrl;
 	}
 
+
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+		Produto produto = (Produto) o;
+		return Double.compare(preco, produto.preco) == 0 && Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(imgUrl, produto.imgUrl) && Objects.equals(categorias, produto.categorias) && Objects.equals(itens, produto.itens);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, nome, preco, descricao, imgUrl, categorias, itens);
 	}
 }
